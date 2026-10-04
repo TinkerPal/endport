@@ -73,8 +73,10 @@ try {
   assert.equal(legacyWorkspace.status, 308);
   assert.equal(legacyWorkspace.headers.location, 'https://workspace.endport.io/old-app');
   const docs = await fetch(`${base}/docs`); assert.equal(docs.status, 200); assert((await docs.text()).includes('Troubleshooting'));
-  assert.equal((await fetch(`${base}/internal/tls-check?domain=edge.endport.io`)).status, 200);
+  assert.equal((await fetch(`${base}/internal/tls-check?domain=api.endport.io`)).status, 200);
   assert.equal((await fetch(`${base}/internal/tls-check?domain=workspace.endport.io`)).status, 403);
+  assert.equal((await getOnHost('/api/cli/code', 'api.endport.io')).status, 401);
+  assert.equal((await getOnHost('/api/logs/login', 'api.endport.io')).status, 405);
   assert.equal((await fetch(`${base}/downloads/endport-cli-0.1.0.tgz`)).status, 200);
   await new Promise((resolve) => local.listen(0, '127.0.0.1', resolve));
   const localPort = local.address().port;

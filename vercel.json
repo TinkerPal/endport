@@ -8,7 +8,7 @@
     {
       "source": "/api/logs/:path*",
       "has": [{ "type": "host", "value": "workspace.endport.io" }],
-      "destination": "https://edge.endport.io/api/logs/:path*"
+      "destination": "https://api.endport.io/api/logs/:path*"
     },
     {
       "source": "/",

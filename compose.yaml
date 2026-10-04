@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://endport:${POSTGRES_PASSWORD}@db:5432/endport
-      BASE_URL: https://edge.endport.io
+      BASE_URL: https://api.endport.io
       PUBLIC_DOMAIN: endport.io
       PORT: 8080
       INSTANCE_URL: http://app:8080

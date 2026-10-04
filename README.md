@@ -49,9 +49,9 @@ The public setup guide is at `https://endport.io/get-started`. The **Open Worksp
 
 ## Production deployment
 
-The website and workspace UI deploy together as one static Vercel project using the root `vercel.json`. Add **both** `endport.io` and `workspace.endport.io` to that project. The hostname-aware routes serve the landing page at the apex and the code-entry/workspace pages on the subdomain. Workspace API requests at `/api/logs/*` are proxied by Vercel to `https://edge.endport.io`; the browser stays on `workspace.endport.io` so its host-only session cookie works. Build settings are in `vercel.json`, so import this repository with its root directory unchanged.
+The website and workspace UI deploy together as one static Vercel project using the root `vercel.json`. Add **both** `endport.io` and `workspace.endport.io` to that project. The hostname-aware routes serve the landing page at the apex and the code-entry/workspace pages on the subdomain. Workspace API requests at `/api/logs/*` are proxied by Vercel to `https://api.endport.io`; the browser stays on `workspace.endport.io` so its host-only session cookie works. Build settings are in `vercel.json`, so import this repository with its root directory unchanged.
 
-The tunnel gateway cannot run as a static Vercel site. Deploy the included Docker Compose stack on a Linux VPS with public ports 80 and 443, and keep PostgreSQL and Caddy's certificate storage persistent. The CLI connects to `edge.endport.io`. App URLs (`<app>.endport.io`) and custom-domain traffic also reach that gateway. Deploy and verify the gateway **before** pointing the Vercel workspace live, or login and logs requests will fail.
+The tunnel gateway cannot run as a static Vercel site. Deploy the included Docker Compose stack on a Linux VPS with public ports 80 and 443, and keep PostgreSQL and Caddy's certificate storage persistent. The CLI connects to `api.endport.io`. App URLs (`<app>.endport.io`) and custom-domain traffic also reach that gateway. Deploy and verify the gateway **before** pointing the Vercel workspace live, or login and logs requests will fail.
 
 Add the two domains in Vercel first and use the exact A/CNAME targets shown by its domain inspector. Configure DNS at your current DNS provider:
 
@@ -59,21 +59,28 @@ Add the two domains in Vercel first and use the exact A/CNAME targets shown by i
 | --- | --- | --- |
 | `endport.io` | A | Vercel-provided apex address |
 | `workspace.endport.io` | CNAME | Vercel-provided subdomain target |
-| `edge.endport.io` | A | Gateway VPS IPv4 address |
+| `api.endport.io` | A | Gateway VPS IPv4 address |
 | `*.endport.io` | A | Gateway VPS IPv4 address |
 | `ingress.endport.io` | A | Gateway VPS IPv4 address |
 
-Explicit `workspace` and `edge` records take priority over the wildcard at your DNS provider. Remove the current Porkbun parking records for the apex and workspace when replacing them. Do not add `*.endport.io` as a Vercel project domain: the wildcard belongs to the gateway. Use DNS-only records for the gateway if your provider offers proxying. `endport.dev` is unused by this deployment; it can later redirect to the `.io` site from a separate domain configuration.
+Explicit `workspace` and `api` records take priority over the wildcard at your DNS provider. Remove the current Porkbun parking records for the apex and workspace when replacing them. Do not add `*.endport.io` as a Vercel project domain: the wildcard belongs to the gateway. Use DNS-only records for the gateway if your provider offers proxying. `endport.dev` is unused by this deployment; it can later redirect to the `.io` site from a separate domain configuration.
 
-Create `.env` from `.env.example` on the VPS. Set a URL-safe PostgreSQL password, an ACME email address, and a separate `INTERNAL_SHARED_SECRET` of at least 32 characters. `openssl rand -hex 32` generates a suitable value for each secret. Do not commit `.env` or `.env.test`.
+On an Ubuntu VPS, install Docker Engine and its Compose plugin using [Docker's Ubuntu installation guide](https://docs.docker.com/engine/install/ubuntu/). Point the `api` and wildcard DNS records to the VPS, and allow inbound TCP ports 80 and 443 at the VPS provider firewall. Keep SSH (usually TCP 22) available. Ports 5432 and 8080 stay internal to Docker and should not be opened publicly. Ensure no other server already occupies 80 or 443.
+
+Clone the repository on the VPS and create `.env` from `.env.example`. Set a URL-safe PostgreSQL password, an ACME email address, and a separate `INTERNAL_SHARED_SECRET` of at least 32 characters. `openssl rand -hex 32` generates a suitable value for each secret. Do not commit `.env` or `.env.test`.
 
 ```sh
+git clone https://github.com/TinkerPal/endport.git
+cd endport
 cp .env.example .env
-# Edit .env with your values.
-docker compose up -d --build
-docker compose ps
-curl https://edge.endport.io/api/health
+chmod 600 .env
+nano .env
+sudo docker compose up -d --build
+sudo docker compose ps
+curl https://api.endport.io/api/health
 ```
+
+The health check should return `{"ok":true}` over HTTPS. Check startup or certificate problems with `sudo docker compose logs --tail=100 app caddy db`. Caddy obtains and renews TLS for `api.endport.io` and approved app hostnames; its data volume must persist. For later updates, run `git pull --ff-only` and `sudo docker compose up -d --build` from the same directory.
 
 Push the repository from TinkerPal, import it into one Vercel project, and attach the apex and workspace domains to the production deployment. Vercel builds the static `dist/` output. Then install the CLI and run `endport 3000 --name packly` from a machine with a local server on port 3000. The CLI package is included in the site build at `/downloads/endport-cli-0.1.0.tgz`.
 
@@ -100,5 +107,5 @@ node tests/e2e.mjs
 - Five app names per CLI identity, 100 concurrent HTTP requests per app, 120 HTTP requests per minute per visitor, and 50 public WebSockets per app.
 - Request bodies are limited to 2 MB and ordinary responses to 10 MB. Server sent events need data or heartbeat comments within the 60-second idle timeout.
 - Request metadata is retained for seven days. Back up the `postgres_data` and `caddy_data` volumes. A logical database backup can be made with `docker compose exec -T db pg_dump -U endport endport > endport-backup.sql`.
-- A fresh Caddy on-demand certificate can delay the first connection to a new app hostname and is subject to certificate authority rate limits. At larger scale, use a wildcard certificate for `*.endport.io` through a DNS challenge. Vercel manages TLS for `endport.io` and `workspace.endport.io`; Caddy manages it for `edge.endport.io` and gateway-routed app hostnames.
+- A fresh Caddy on-demand certificate can delay the first connection to a new app hostname and is subject to certificate authority rate limits. At larger scale, use a wildcard certificate for `*.endport.io` through a DNS challenge. Vercel manages TLS for `endport.io` and `workspace.endport.io`; Caddy manages it for `api.endport.io` and gateway-routed app hostnames.
 - This release does not provide account recovery, teams, full-fidelity request replay, or a high-availability guarantee. JSON previews are intentionally redacted and cannot be used to replay POST or PUT bodies.

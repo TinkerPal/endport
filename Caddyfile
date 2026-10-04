@@ -5,7 +5,7 @@
     }
 }
 
-edge.endport.io {
+api.endport.io {
     reverse_proxy app:8080 {
         header_up X-Real-IP {remote_host}
     }

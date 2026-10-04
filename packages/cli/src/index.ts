@@ -15,7 +15,7 @@ const CONFIG_FILE = process.env.ENDPORT_CONFIG_FILE ?? path.join(homedir(), '.co
 const IDENTITIES_DIR = path.join(path.dirname(CONFIG_FILE), 'identities');
 const PROJECT_FILE = path.join(process.cwd(), '.endport.json');
 const SERVICES_FILE = path.join(process.cwd(), 'endport.config.json');
-const DEFAULT_SERVER = 'https://edge.endport.io';
+const DEFAULT_SERVER = 'https://api.endport.io';
 const MAX_RESPONSE = 10 * 1024 * 1024;
 const MAX_BUFFERED = 16 * 1024 * 1024;
 
