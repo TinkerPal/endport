@@ -1,0 +1,28 @@
+name: Endport CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Create local test configuration
+        run: |
+          echo "POSTGRES_PASSWORD=$(openssl rand -hex 32)" > .env.test
+          echo "ACME_EMAIL=admin@endport.io" >> .env.test
+          echo "INTERNAL_SHARED_SECRET=$(openssl rand -hex 32)" >> .env.test
+      - run: docker compose --env-file .env.test -f compose.yaml -f compose.dev.yaml up -d --build db app
+      - run: node tests/e2e.mjs
+      - if: failure()
+        run: docker compose --env-file .env.test -f compose.yaml -f compose.dev.yaml logs --no-color app db
+      - if: always()
+        run: docker compose --env-file .env.test -f compose.yaml -f compose.dev.yaml down --volumes

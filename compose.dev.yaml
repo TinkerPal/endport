@@ -1,0 +1,22 @@
+services:
+  app:
+    environment:
+      BASE_URL: http://localhost:8080
+    ports:
+      - "127.0.0.1:8080:8080"
+  app2:
+    profiles: ["cluster_test"]
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://endport:${POSTGRES_PASSWORD}@db:5432/endport
+      BASE_URL: http://localhost:8080
+      PUBLIC_DOMAIN: endport.io
+      PORT: 8080
+      INSTANCE_URL: http://app2:8080
+      INTERNAL_SHARED_SECRET: ${INTERNAL_SHARED_SECRET:?Set INTERNAL_SHARED_SECRET in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8081:8080"

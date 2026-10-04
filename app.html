@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d1410" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Workspace · Endport</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/app.css" />
+  <script type="module" src="/src/app.ts"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="https://endport.io/" aria-label="Endport home"><img class="brand-symbol" src="/favicon.svg" alt="" />endport<span class="brand-dot">.</span></a>
+  <span class="topbar-divider" aria-hidden="true"></span>
+  <span class="topbar-context">Workspace <span>/</span> <strong id="topbar-app">Endpoint</strong></span>
+  <span class="topbar-spacer"></span>
+  <span id="topbar-status" class="topbar-status" hidden><i></i><span>Offline</span></span>
+  <button id="logout" class="topbar-logout" type="button" hidden>Lock workspace <span aria-hidden="true">↗</span></button>
+</header>
+<main id="main">
+  <section id="auth-view" class="auth-screen" hidden>
+    <div class="auth-story"><div class="auth-story-inner">
+      <div class="overline"><span></span> ENDPORT WORKSPACE / PRIVATE</div>
+      <h1>Your endpoint.<br /><em>In focus.</em></h1>
+      <p>Follow requests, spot errors, and manage the domain connected to your local server. Unlock the workspace with a one-time code from the project terminal.</p>
+      <div class="auth-preview" aria-hidden="true"><div class="preview-bar"><span><i></i><i></i><i></i></span>terminal · project</div><div class="preview-body"><div><b>❯</b> endport code</div><div class="preview-muted">Logs&nbsp; https://workspace.endport.io/<br />App&nbsp;&nbsp; <span id="preview-app">your-app</span></div><div>Code&nbsp; <mark>•••••-•••••</mark></div></div></div>
+      <div class="auth-footnote"><span>✳</span> No email account. One code from your CLI.</div>
+    </div></div>
+    <div class="auth-form-wrap"><div class="auth-form-inner">
+      <div class="auth-form-top"><span>01 / UNLOCK</span><span aria-hidden="true">⌑</span></div>
+      <div class="auth-app-icon" aria-hidden="true">↗</div>
+      <p class="auth-kicker">REQUEST LOGS FOR</p><h2 id="code-app-name">Your app</h2>
+      <p class="auth-explainer">Run <code>endport code</code> inside this app’s directory, then enter the code printed in your terminal.</p>
+      <form id="code-form"><label for="code-input">One-time terminal code</label><input id="code-input" type="text" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" placeholder="ABCDE-23456" maxlength="11" required /><button class="button button-primary" type="submit">Open workspace <span aria-hidden="true">↗</span></button><p class="form-error" id="auth-error" role="alert"></p></form>
+      <div class="auth-note"><span aria-hidden="true">◷</span> Codes expire after 10 minutes and work once.</div>
+    </div></div>
+  </section>
+
+  <div id="dashboard-view" class="workspace-shell" hidden>
+    <aside class="workspace-sidebar" aria-label="Workspace navigation">
+      <div class="sidebar-project"><div class="sidebar-project-icon" aria-hidden="true">↗</div><div><span>CONNECTED APP</span><strong id="sidebar-app">Your app</strong></div></div>
+      <div class="sidebar-section-label">WORKSPACE</div>
+      <nav class="workspace-nav" aria-label="Endpoint sections">
+        <button type="button" data-view="traffic" class="active"><span aria-hidden="true">▤</span> Traffic <small>01</small></button>
+        <button type="button" data-view="analytics"><span aria-hidden="true">▥</span> Analytics <small>02</small></button>
+        <button type="button" data-view="access"><span aria-hidden="true">◈</span> Access <small>03</small></button>
+        <button type="button" data-view="domains"><span aria-hidden="true">◇</span> Domain <small>04</small></button>
+        <button type="button" data-view="setup"><span aria-hidden="true">⌘</span> Setup <small>05</small></button>
+      </nav>
+      <div class="sidebar-bottom"><span>ENDPORT CLI</span><code>endport code</code><p>Run inside your app directory to unlock this workspace again.</p></div>
+    </aside>
+    <div class="workspace-main">
+      <div class="workspace-toolbar"><div class="breadcrumbs">ENDPOINT <span>/</span> <strong id="breadcrumb-app">YOUR APP</strong> <span>/</span> <strong id="breadcrumb-view">TRAFFIC</strong></div><div class="toolbar-right"><span id="last-updated">Waiting for data</span><span>⌑ PRIVATE WORKSPACE</span></div></div>
+      <div class="workspace-content">
+        <div class="endpoint-heading"><div><div class="overline dark-overline"><span></span> ENDPOINT OVERVIEW</div><h1 id="app-name">Your app</h1><p>Local traffic, visible from anywhere.</p></div><span id="app-status" class="endpoint-status"><i></i><span>Checking</span></span></div>
+        <div class="endpoint-url-row"><span>PUBLIC URL</span><a id="app-url" href="#" target="_blank" rel="noopener noreferrer">—</a><button id="copy-public" type="button">Copy URL <span aria-hidden="true">↗</span></button></div>
+        <div id="offline-banner" class="offline-banner" hidden><strong>Endpoint offline.</strong> Start your local app and run <code>endport &lt;port&gt;</code> in its directory. This workspace will reconnect automatically.</div>
+
+        <section id="traffic-view" class="workspace-view" aria-labelledby="traffic-title">
+          <div class="section-heading"><div><div class="section-index">01 / LIVE TRAFFIC</div><h2 id="traffic-title">Request activity</h2><p>Incoming requests to this endpoint, updated while the workspace is open.</p></div><span class="section-aside">METADATA ONLY · 7 DAY RETENTION</span></div>
+          <div class="metric-grid"><div class="metric"><span>REQUESTS / 24H</span><strong id="stat-requests">—</strong><small>Through this endpoint</small></div><div class="metric"><span>SERVER ERRORS / 24H</span><strong id="stat-errors">—</strong><small>Responses with 5xx status</small></div><div class="metric"><span>AVERAGE TIME</span><strong id="stat-latency">—</strong><small>Gateway to local response</small></div><div class="metric"><span>DATA TRANSFERRED</span><strong id="stat-bytes">—</strong><small>Last 24 hours</small></div></div>
+          <div class="traffic-toolbar"><label class="search-wrap" for="request-search"><span aria-hidden="true">⌕</span><input id="request-search" type="search" placeholder="Filter by route or method  /" autocomplete="off" /></label><label class="filter-wrap" for="status-filter">Status <select id="status-filter"><option value="all">All requests</option><option value="2xx">2xx success</option><option value="3xx">3xx redirect</option><option value="4xx">4xx client error</option><option value="5xx">5xx server error</option></select></label><button id="pause-live" class="toolbar-button" type="button" aria-pressed="false"><span class="live-indicator"></span><span>Live</span></button></div>
+          <div class="traffic-layout"><section class="request-panel" aria-label="Recent requests"><div class="panel-topline"><div><strong>Requests</strong><span id="request-count">0 shown</span></div><span>7 DAY HISTORY</span></div><div class="request-head"><span>METHOD</span><span>PATH</span><span>STATUS</span><span>DURATION</span><span>TIME</span></div><div id="request-list" class="request-list"></div><div id="request-empty" class="request-empty" hidden><span class="empty-glyph" aria-hidden="true">⌁</span><strong>No requests to show</strong><p id="request-empty-copy">Send a request to your public URL, then watch it appear here.</p></div><button id="load-older" class="load-older" type="button" hidden>Load older requests ↓</button></section><aside class="detail-panel" aria-labelledby="detail-title"><div class="panel-topline"><div><strong id="detail-title">Inspector</strong><span>REQUEST DETAILS</span></div><span class="detail-live-dot" aria-hidden="true"></span></div><div id="detail-placeholder" class="detail-placeholder"><span aria-hidden="true">↖</span><strong>Select a request</strong><p>Choose a row to inspect its status, timing, and transfer size.</p></div><div id="detail-content" hidden><div class="detail-method-line"><span id="detail-method">GET</span><strong id="detail-status">200</strong></div><code id="detail-path">/</code><div class="detail-divider"></div><dl><div><dt>Received</dt><dd id="detail-time">—</dd></div><div><dt>End-to-end</dt><dd id="detail-duration">—</dd></div><div><dt>Local handling</dt><dd id="detail-origin">—</dd></div><div><dt>Request size</dt><dd id="detail-in">—</dd></div><div><dt>Response size</dt><dd id="detail-out">—</dd></div></dl><div id="body-preview" class="body-preview" hidden><h4>Redacted JSON previews</h4><span>REQUEST</span><pre id="request-preview"></pre><span>RESPONSE</span><pre id="response-preview"></pre></div><button id="replay-request" class="replay-request" type="button" hidden>Replay bodyless request ↻</button><p id="replay-result" class="replay-result"></p><div class="detail-notice"><strong>Privacy by default</strong><p>Endport stores metadata by default. JSON body previews are stored only when enabled in Access. Headers and query strings are never stored.</p></div></div></aside></div>
+        </section>
+
+        <section id="analytics-view" class="workspace-view" aria-labelledby="analytics-title" hidden><div class="section-heading"><div><div class="section-index">02 / TRAFFIC ANALYTICS</div><h2 id="analytics-title">The last 24 hours</h2><p>Volume, errors, and the routes your app sees most often.</p></div></div><div class="analytics-grid"><section class="analytics-panel"><div class="panel-topline"><div><strong>Requests over time</strong><span>HOURLY TRAFFIC</span></div><span>24H</span></div><div id="analytics-bars" class="analytics-bars" role="img" aria-label="Hourly request volume"></div><div class="chart-axis"><span>24 hours ago</span><span>Now</span></div></section><section class="analytics-panel"><div class="panel-topline"><div><strong>Top routes</strong><span>BY REQUEST COUNT</span></div><span>24H</span></div><div id="top-routes" class="top-routes"></div></section></div></section>
+
+        <section id="access-view" class="workspace-view" aria-labelledby="access-title" hidden><div class="section-heading"><div><div class="section-index">03 / TEST ACCESS</div><h2 id="access-title">Share the app on your terms.</h2><p>Public apps are open to anyone with the URL. Restricted apps need a visitor link that you can expire or revoke.</p></div></div><div class="settings-grid"><div class="settings-card"><div class="card-index">VISIBILITY</div><h3>Who can open the app?</h3><p>This setting affects your public app URL. The owner’s logs workspace always requires its own terminal code.</p><div class="access-choice"><label><input type="radio" name="access-mode" value="public" checked /><span><strong>Public</strong><small>Anyone with the URL can visit.</small></span></label><label><input type="radio" name="access-mode" value="restricted" /><span><strong>Restricted</strong><small>Visitors need an active access link.</small></span></label></div><p class="form-error" id="access-error" role="alert"></p></div><div class="settings-card"><div class="card-index">INVITE A TESTER</div><h3>Create a visitor link</h3><p>Links grant access to the running app, never to these logs or settings. You can revoke one at any time.</p><form id="share-form"><label for="share-label">LABEL</label><div class="form-row"><input id="share-label" type="text" maxlength="80" placeholder="Client review" required /><select id="share-hours" aria-label="Link expiry"><option value="1">1 hour</option><option value="24" selected>24 hours</option><option value="168">7 days</option></select><button class="button button-dark" type="submit">Create link <span aria-hidden="true">↗</span></button></div></form><p class="form-error" id="share-error" role="alert"></p><div id="new-share" class="new-share" hidden><span>LINK CREATED · COPY IT NOW</span><div><code id="new-share-url"></code><button id="copy-share" type="button">Copy link</button></div><p>The secret link is shown only once.</p></div></div></div><div class="settings-card capture-card"><div class="card-index">REQUEST DATA</div><h3>JSON body previews</h3><p>Off by default. When enabled, Endport stores small JSON request and response previews for seven days. Common secret fields and token-like values are masked before storage. Avoid enabling this for sensitive personal or payment data.</p><label class="capture-toggle"><input id="capture-bodies" type="checkbox" /><span>Capture redacted JSON previews</span></label><p class="form-error" id="capture-error" role="alert"></p></div><section class="share-list-panel"><div class="panel-topline"><div><strong>Visitor links</strong><span>REVOKE ACCESS AT ANY TIME</span></div></div><div id="share-list" class="share-list"></div><div id="share-empty" class="request-empty" hidden><strong>No visitor links yet</strong><p>Create one above when you are ready to share this app.</p></div></section></section>
+
+        <section id="domains-view" class="workspace-view" aria-labelledby="domains-title" hidden><div class="section-heading"><div><div class="section-index">03 / CUSTOM DOMAIN</div><h2 id="domains-title">Your domain. Your endpoint.</h2><p>Connect a subdomain you own. Verify DNS once, then run the same CLI from your project.</p></div></div><div class="settings-grid"><div class="settings-card"><div class="card-index">01 / ADD DOMAIN</div><h3>Connect a hostname</h3><p>Use a subdomain such as <code>api.example.com</code>. Your Endport URL remains available.</p><form id="domain-form"><label for="domain-input">DOMAIN NAME</label><div class="form-row"><input id="domain-input" type="text" placeholder="api.example.com" autocomplete="off" required /><button class="button button-dark" type="submit">Get DNS records <span aria-hidden="true">↗</span></button></div></form><p class="form-error" id="domain-error" role="alert"></p></div><div class="settings-card"><div class="card-index">02 / VERIFY DNS</div><h3 id="domain-state">No custom domain yet</h3><p>After adding a hostname, create these records with your DNS provider.</p><div id="domain-instructions" hidden><div class="dns-record"><span>CNAME</span><code id="dns-cname">—</code></div><div class="dns-record"><span>TXT</span><code id="dns-txt">—</code></div><button id="verify-domain" class="button button-outline" type="button">Verify DNS <span aria-hidden="true">↗</span></button></div><div id="domain-placeholder" class="settings-placeholder">Your DNS instructions will appear here.</div></div></div></section>
+
+        <section id="setup-view" class="workspace-view" aria-labelledby="setup-title" hidden><div class="section-heading"><div><div class="section-index">04 / PROJECT SETUP</div><h2 id="setup-title">Keep your endpoint connected.</h2><p>The app URL belongs to this project. Keep the CLI running while you need it online.</p></div></div><div class="settings-grid"><div class="settings-card"><div class="card-index">CLI / CONNECTION</div><h3>From your app directory</h3><p>Start your local server, then expose its port.</p><div class="setup-command"><span>❯</span><code>endport 3000</code></div><p>The CLI reconnects when the connection drops. Closing it takes the public endpoint offline.</p></div><div class="settings-card"><div class="card-index">CLI / ACCESS</div><h3>Open these logs again</h3><p>Generate a fresh one-time code from the same project directory.</p><div class="setup-command"><span>❯</span><code>endport code</code></div><p>Back up <code>~/.config/endport/identities/</code>. Those private credentials control your app name.</p></div></div></section>
+      </div>
+    </div>
+  </div>
+</main>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>

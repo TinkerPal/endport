@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/api/logs/:path*",
+      "has": [{ "type": "host", "value": "workspace.endport.io" }],
+      "destination": "https://edge.endport.io/api/logs/:path*"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "workspace.endport.io" }],
+      "destination": "/logs-home.html"
+    },
+    {
+      "source": "/log",
+      "has": [{ "type": "host", "value": "workspace.endport.io" }],
+      "destination": "/logs-home.html"
+    },
+    {
+      "source": "/:slug",
+      "has": [{ "type": "host", "value": "workspace.endport.io" }],
+      "destination": "/app.html"
+    },
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/docs", "destination": "/docs.html" },
+    { "source": "/get-started", "destination": "/get-started.html" }
+  ]
+}

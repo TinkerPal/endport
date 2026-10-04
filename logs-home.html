@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d1610" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Open Workspace · Endport</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/logs-home.css" />
+  <script type="module" src="/src/logs-home.ts"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="portal-header"><a class="portal-brand" href="https://endport.io/" aria-label="Endport home"><img src="/favicon.svg" alt="" />endport<span>.</span></a><div class="portal-header-right"><span>APP WORKSPACE</span><a href="https://endport.io/get-started">Setup guide ↗</a></div></header>
+  <main id="main" class="portal-grid"><section class="portal-story"><div class="portal-story-inner"><div class="portal-kicker"><i></i> PRIVATE WORKSPACE</div><h1>Every request.<br /><em>In view.</em></h1><p>Open the traffic workspace for an app connected through Endport. Its owner unlocks the logs with a one-time code printed in the app’s terminal.</p><div class="portal-sample" aria-label="Example request activity"><div class="sample-top"><span><i></i><i></i><i></i></span> packly / traffic <b>● LIVE</b></div><div class="sample-stats"><div><span>REQUESTS / 24H</span><strong>184</strong></div><div><span>AVG. RESPONSE</span><strong>84ms</strong></div><div><span>ERRORS</span><strong>2</strong></div></div><div class="sample-row"><span class="sample-method">GET</span><code>/api/users</code><b>200</b><small>43ms</small></div><div class="sample-row"><span class="sample-method post">POST</span><code>/api/login</code><b>200</b><small>92ms</small></div><div class="sample-row"><span class="sample-method post">POST</span><code>/payments</code><b class="sample-error">500</b><small>112ms</small></div><div class="sample-caption">EXAMPLE DATA · YOUR LOGS STAY PRIVATE</div></div></div></section>
+    <section class="portal-form-side"><div class="portal-form-inner"><div class="portal-index"><span>01 / UNLOCK WORKSPACE</span><span aria-hidden="true">⌑</span></div><div class="portal-icon"><img src="/favicon.svg" alt="" /></div><p class="portal-label">YOUR ENDPORT CODE</p><h2>Open your logs.</h2><p class="portal-intro">Enter the one-time code printed by your Endport CLI. We’ll find the connected app and open its private workspace.</p><form id="code-form"><label for="code-input">TERMINAL CODE</label><div class="portal-input-wrap"><span>↗</span><input id="code-input" type="text" spellcheck="false" autocapitalize="characters" autocomplete="one-time-code" maxlength="11" placeholder="ABCDE-23456" required /></div><button type="submit">Open logs <span aria-hidden="true">↗</span></button><p id="code-error" class="portal-error" role="alert"></p></form><div class="portal-help"><span>NEED A CODE?</span><p>Run <code>endport code</code> in the same project directory where you connected the app. Codes expire after 10 minutes and work once.</p></div><div class="portal-bottom"><span>NO EMAIL ACCOUNT REQUIRED</span><a href="https://endport.io/get-started">New to Endport? Start here ↗</a></div></div></section></main>
+</body>
+</html>

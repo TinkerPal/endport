@@ -1,0 +1,8 @@
+node_modules
+.npm-cache
+dist
+server-dist
+.env
+.env.test
+.git
+.DS_Store

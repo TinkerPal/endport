@@ -1,0 +1,26 @@
+{
+  "name": "endport",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build && tsc -p server/tsconfig.json && tsc -p packages/cli/tsconfig.json && mkdir -p dist/downloads && npm pack ./packages/cli --pack-destination dist/downloads --cache ./.npm-cache --offline",
+    "start": "node server-dist/index.js",
+    "dev:server": "tsx watch server/index.ts",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/pg": "^8.23.1",
+    "@types/ws": "^8.18.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0"
+  },
+  "dependencies": {
+    "pg": "^8.23.0",
+    "ws": "^8.22.0"
+  }
+}

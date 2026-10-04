@@ -1,0 +1,10 @@
+{
+  "name": "@endport/cli",
+  "version": "0.1.0",
+  "description": "Expose a local port through Endport",
+  "type": "module",
+  "bin": { "endport": "dist/index.js" },
+  "files": ["dist", "README.md"],
+  "engines": { "node": ">=20.19.0" },
+  "dependencies": { "ws": "^8.18.3" }
+}

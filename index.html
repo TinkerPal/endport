@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101512" />
+    <meta name="description" content="Endport gives your local API a public HTTPS endpoint. Expose a port, use your own domain, and inspect every request." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Endport — Localhost ends here." />
+    <meta property="og:description" content="Public HTTPS for your local API. One command to expose it, one place to inspect it." />
+    <meta property="og:url" content="https://endport.io/" />
+    <link rel="canonical" href="https://endport.io/" />
+    <title>Endport — Localhost ends here.</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="Endport home">
+          <span class="brand-mark" aria-hidden="true"><img src="/favicon.svg" alt="" /></span>
+          <span>endport<span class="brand-dot">.</span></span>
+        </a>
+        <nav class="header-nav" aria-label="Main navigation"><a href="/docs">Documentation</a><a href="/get-started">Get Started</a></nav>
+        <a class="header-cta" href="https://workspace.endport.io/" data-logs-link>Open Workspace <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-pulse" aria-hidden="true"></span> THE LOCALHOST TOOLKIT</div>
+          <h1 id="hero-title">Localhost<br /><em>ends here.</em></h1>
+          <p class="hero-description">Give your local API a public HTTPS endpoint and a private place to see every request. One command in your project directory. No email account.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="/get-started">Get started <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-proof"><span class="proof-icon" aria-hidden="true">✓</span> Your URL stays yours. Keep the CLI running to stay online.</div>
+        </div>
+
+        <div class="hero-visual" aria-label="Example Endport command line output">
+          <div class="visual-orbit orbit-one" aria-hidden="true"></div>
+          <div class="visual-orbit orbit-two" aria-hidden="true"></div>
+          <div class="terminal-card">
+            <div class="terminal-topbar"><div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div><span>Terminal</span><span class="terminal-topbar-end">● connected</span></div>
+            <div class="terminal-body">
+              <div class="terminal-command"><span class="prompt">❯</span> endport 3000 --name myapp</div>
+              <div class="terminal-divider"></div>
+              <div class="terminal-heading"><img class="terminal-logo" src="/favicon.svg" alt="" /> ENDPORT <span class="terminal-version">v0.1</span></div>
+              <div class="terminal-line"><span>Local</span><strong>http://localhost:3000</strong></div>
+              <div class="terminal-line"><span>Public</span><strong class="terminal-url">https://myapp.endport.io</strong></div>
+              <div class="terminal-line"><span>Logs</span><strong class="terminal-url">https://workspace.endport.io/</strong></div>
+              <div class="terminal-line"><span>Code</span><strong>R7K2M-4WQ9P</strong></div>
+              <div class="terminal-status"><span class="status-dot" aria-hidden="true"></span> Tunnel active <span class="terminal-status-check">✓</span></div>
+              <div class="terminal-requests"><div class="requests-title">IN YOUR BROWSER <span>↗ private</span></div><div class="request-line"><span class="method get">01</span><span>Open the logs URL</span><span></span><span></span></div><div class="request-line"><span class="method post">02</span><span>Enter the terminal code</span><span></span><span></span></div></div>
+            </div>
+          </div>
+          <div class="float-note"><span aria-hidden="true">↗</span> YOUR API, ANYWHERE</div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Endport capabilities"><div class="shell ticker-inner"><span>PUBLIC HTTPS</span><b>✳</b><span>YOUR OWN DOMAIN</span><b>✳</b><span>REQUEST INSPECTION</span><b>✳</b><span>ONE SIMPLE COMMAND</span></div></section>
+
+      <section class="steps-section section-pad" id="how-it-works" aria-labelledby="steps-title">
+        <div class="shell">
+          <div class="section-heading"><div><div class="section-kicker">01 / THE WORKFLOW</div><h2 id="steps-title">From local to live<br /><em>in one terminal.</em></h2></div><p>Run Endport in your app directory. The CLI creates a project URL, keeps the tunnel open, and prints a private logs code.</p></div>
+          <div class="steps-grid" id="quick-overview">
+            <article class="step-card"><div class="step-number">01 <span>INSTALL</span></div><h3>Get the CLI</h3><p>Install the CLI directly from Endport.</p><div class="code-row"><code>npm install -g https://endport.io/downloads/endport-cli-0.1.0.tgz</code><button class="copy-button" type="button" data-copy="npm install -g https://endport.io/downloads/endport-cli-0.1.0.tgz" aria-label="Copy install command" title="Copy command"><span class="copy-icon" aria-hidden="true">▣</span><span class="copy-label">Copy</span></button></div></article>
+            <article class="step-card"><div class="step-number">02 <span>EXPOSE</span></div><h3>Connect your app</h3><p>Pick a name or let Endport use your project directory. Leave the CLI running.</p><div class="code-row"><code>endport 3000 --name myapp</code><button class="copy-button" type="button" data-copy="endport 3000 --name myapp" aria-label="Copy expose command" title="Copy command"><span class="copy-icon" aria-hidden="true">▣</span><span class="copy-label">Copy</span></button></div></article>
+            <article class="step-card"><div class="step-number">03 <span>INSPECT</span></div><h3>Open your logs</h3><p>Enter the one-time code printed in your terminal.</p><div class="code-row"><code>workspace.endport.io/</code><button class="copy-button" type="button" data-copy="https://workspace.endport.io/" aria-label="Copy logs URL" title="Copy URL"><span class="copy-icon" aria-hidden="true">▣</span><span class="copy-label">Copy</span></button></div></article>
+          </div>
+          <p class="availability-note">Node.js 20.19+ required · App identity is saved per project · Private credentials stay on your machine</p>
+        </div>
+      </section>
+
+      <section class="feature-section section-pad" id="inspect" aria-labelledby="inspect-title">
+        <div class="shell feature-grid">
+          <div class="dashboard-preview" aria-label="Endport logs workspace illustration using sample requests">
+            <div class="preview-sidebar"><img class="preview-brand-icon" src="/favicon.svg" alt="" /><div class="sidebar-item active">▤</div><div class="sidebar-item">▥</div><div class="sidebar-item">◇</div><div class="sidebar-avatar">P</div></div>
+            <div class="preview-main">
+              <div class="preview-top"><div><small>WORKSPACE / PACKLY / TRAFFIC</small><h3>packly <span class="online-badge"><i></i> CONNECTED</span></h3></div><span class="preview-more">⌑</span></div>
+              <div class="preview-url"><span>PUBLIC URL</span><strong>https://packly.endport.io</strong><b>↗</b></div>
+              <div class="preview-stats"><div><small>REQUESTS / 24H</small><strong>184</strong><span>through this endpoint</span></div><div><small>SERVER ERRORS</small><strong>2</strong><span>5xx responses</span></div><div><small>AVG. TIME</small><strong>84<span>ms</span></strong><span>to local response</span></div><div><small>TRANSFERRED</small><strong>2.4<span>MB</span></strong><span>last 24 hours</span></div></div>
+              <div class="preview-toolbar"><span>⌕ &nbsp; Filter by route or method</span><b>● LIVE</b></div>
+              <div class="preview-workspace-layout"><div class="preview-traffic"><div class="preview-list-heading"><strong>Recent requests</strong><span>LAST 100</span></div><div class="preview-table-head"><span>METHOD</span><span>PATH</span><span>STATUS</span><span>TIME</span></div><div class="preview-request"><span class="preview-method post">POST</span><span>/api/login</span><span class="preview-status">200</span><span>92ms</span></div><div class="preview-request selected"><span class="preview-method get">GET</span><span>/api/users</span><span class="preview-status">200</span><span>43ms</span></div><div class="preview-request error"><span class="preview-method post">POST</span><span>/payments</span><span class="preview-status">500</span><span>112ms</span></div><div class="preview-request"><span class="preview-method get">GET</span><span>/api/products</span><span class="preview-status">200</span><span>61ms</span></div><div class="preview-request"><span class="preview-method get">GET</span><span>/health</span><span class="preview-status">200</span><span>18ms</span></div></div><div class="preview-inspector"><div class="preview-inspector-head"><strong>Inspector</strong><span>REQUEST DETAIL</span></div><div class="preview-inspector-method"><span>GET</span><b>200</b></div><code>/api/users</code><dl><div><dt>Received</dt><dd>14:32:06</dd></div><div><dt>Duration</dt><dd>43ms</dd></div><div><dt>Request</dt><dd>0.8 KB</dd></div><div><dt>Response</dt><dd>2.1 KB</dd></div></dl><p>Metadata only.<br />Bodies stay private.</p></div></div>
+              <div class="preview-bottom"><span>TRAFFIC <b>▥</b> &nbsp; ANALYTICS &nbsp; ◇ DOMAIN</span><span>SAMPLE DATA · PRIVATE WORKSPACE</span></div>
+            </div>
+          </div>
+          <div class="feature-copy"><div class="section-kicker">02 / THE WORKSPACE</div><h2 id="inspect-title">See the request.<br /><em>Find the issue.</em></h2><p>Traffic has a home separate from your app. Open the private workspace to follow requests as they arrive and understand what happened before you switch back to your editor.</p><div class="feature-points"><div><span>▤</span><strong>Live request activity</strong><small>Method, path, status, timing, and transfer size.</small></div><div><span>▥</span><strong>24-hour analytics</strong><small>Hourly volume, errors, and your most active routes.</small></div><div><span>⌘</span><strong>Code from your terminal</strong><small>Access stays tied to the project that created the app.</small></div></div><a class="feature-cta" href="https://workspace.endport.io/" data-logs-link>Open Workspace <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </section>
+
+      <section class="capabilities-section section-pad" aria-labelledby="capabilities-title">
+        <div class="shell capabilities-layout">
+          <div class="capabilities-intro"><div class="section-kicker">BUILT FOR THE DEVELOPMENT LOOP</div><h2 id="capabilities-title">The little details<br /><em>do the work.</em></h2><p>Endport keeps the setup close to your project and gives you the signals you need while your API is in motion.</p><a class="text-link" href="/docs">Read the quick start <span aria-hidden="true">↗</span></a></div>
+          <div class="capabilities-grid">
+            <article><span class="capability-number">01 / PROJECT IDENTITY</span><div class="capability-icon" aria-hidden="true">⌘</div><h3>One directory. One endpoint.</h3><p>Run the CLI inside your app. The assigned URL stays bound to that project, even when a preferred name needs a short suffix.</p></article>
+            <article><span class="capability-number">02 / TRAFFIC</span><div class="capability-icon" aria-hidden="true">↗</div><h3>HTTP, WebSockets, and SSE.</h3><p>Test APIs, live updates, and webhook callbacks against the same public HTTPS address.</p></article>
+            <article><span class="capability-number">03 / PRIVATE LOGS</span><div class="capability-icon" aria-hidden="true">▤</div><h3>A code from your terminal.</h3><p>Request metadata appears in a separate workspace. The one-time code stays in your project terminal.</p></article>
+            <article><span class="capability-number">04 / YOUR DOMAIN</span><div class="capability-icon" aria-hidden="true">◇</div><h3>Bring the hostname you use.</h3><p>Verify a DNS record once, then route a custom subdomain to your local server.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="domains-section section-pad" id="domains" aria-labelledby="domains-title"><div class="shell domains-grid"><div class="domain-illustration" aria-hidden="true"><div class="domain-node local-node"><span>⌁</span><small>LOCAL</small><strong>localhost:3000</strong></div><div class="domain-connector"><i></i><span>ENDPORT</span><i></i></div><div class="domain-node public-node"><span>↗</span><small>PUBLIC HTTPS</small><strong>api.packly.io</strong></div></div><div class="domain-copy"><div class="section-kicker">03 / MAKE IT YOURS</div><h2 id="domains-title">Your domain.<br /><em>Your endpoint.</em></h2><p>Use a ready to go Endport URL, or connect a subdomain your team already knows. Add its DNS records in the dashboard, verify it, then use the command below.</p><div class="domain-code"><span class="prompt">❯</span><code>endport 3000 --domain api.packly.io</code><button class="copy-button" type="button" data-copy="endport 3000 --domain api.packly.io" aria-label="Copy custom domain command" title="Copy command"><span class="copy-icon" aria-hidden="true">▣</span><span class="copy-label">Copy</span></button></div></div></div></section>
+
+      <section class="questions-section section-pad" aria-labelledby="questions-title"><div class="shell questions-layout"><div><div class="section-kicker">BEFORE YOU RUN IT</div><h2 id="questions-title">A few things<br /><em>worth knowing.</em></h2><p>Clear answers for a tool that sits between your local server and the internet.</p></div><div class="questions-list"><details><summary>Does my URL stay online after I close the CLI?</summary><p>The app name stays yours, but the endpoint goes offline when the CLI or local server stops. Run the same command in the project directory to reconnect.</p></details><details><summary>Do I need an account to see logs?</summary><p>No email account is required. Run <code>endport code</code> in the project directory, then enter the one-time code at <code>workspace.endport.io/</code>.</p></details><details><summary>What does Endport store?</summary><p>The workspace stores request method, path, status, timing, and transfer size for seven days. Headers and query strings are never stored. Optional redacted JSON body previews are off by default.</p></details><details><summary>Can I use my own domain?</summary><p>Yes. Add a subdomain in the workspace, create the CNAME and verification TXT records it shows, and verify DNS before connecting with <code>--domain</code>.</p></details></div></div></section>
+
+      <section class="final-cta section-pad"><div class="shell final-inner"><div class="section-kicker">READY WHEN YOU ARE</div><h2>One port.<br /><em>Anywhere.</em></h2><p>From localhost to a public HTTPS endpoint in one command.</p><a class="button button-dark" href="/get-started">See the setup guide <span aria-hidden="true">↗</span></a><div class="final-decoration" aria-hidden="true">↗</div></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="shell footer-inner"><a class="brand" href="/" aria-label="Endport home"><span class="brand-mark" aria-hidden="true"><img src="/favicon.svg" alt="" /></span><span>endport<span class="brand-dot">.</span></span></a><span>Localhost ends here.</span><nav aria-label="Footer navigation"><a href="/docs">Documentation</a><a href="/get-started">Get Started</a><a href="https://workspace.endport.io/" data-logs-link>Open Workspace</a><a href="#top">Back to top ↑</a></nav></div></footer>
+    <div class="sr-only" id="copy-announcement" role="status" aria-live="polite"></div>
+  </body>
+</html>
