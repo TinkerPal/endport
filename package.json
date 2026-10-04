@@ -7,6 +7,7 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build && tsc -p server/tsconfig.json && tsc -p packages/cli/tsconfig.json && mkdir -p dist/downloads && npm pack ./packages/cli --pack-destination dist/downloads --cache ./.npm-cache --offline",
+    "build:vercel": "npm run build && mv dist/index.html dist/landing.html",
     "start": "node server-dist/index.js",
     "dev:server": "tsx watch server/index.ts",
     "preview": "vite preview"

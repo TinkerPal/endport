@@ -14,7 +14,8 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - run: npm run build:vercel
+      - run: test -f dist/landing.html && test ! -e dist/index.html
       - name: Create local test configuration
         run: |
           echo "POSTGRES_PASSWORD=$(openssl rand -hex 32)" > .env.test
