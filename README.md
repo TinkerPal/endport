@@ -51,7 +51,7 @@ The public setup guide is at `https://endport.io/get-started`. The **Open Worksp
 
 The website and workspace UI deploy together as one static Vercel project using the root `vercel.json`. Add **both** `endport.io` and `workspace.endport.io` to that project. The hostname-aware routes serve the landing page at the apex and the code-entry/workspace pages on the subdomain. The Vercel build outputs `landing.html` instead of a root `index.html` so its hostname rewrite can select the workspace page at `/`. Workspace API requests at `/api/logs/*` are proxied by Vercel to `https://api.endport.io`; the browser stays on `workspace.endport.io` so its host-only session cookie works. Build settings are in `vercel.json`, so import this repository with its root directory unchanged.
 
-The tunnel gateway cannot run as a static Vercel site. Deploy the included Docker Compose stack on a Linux VPS with public ports 80 and 443, and keep PostgreSQL and Caddy's certificate storage persistent. The CLI connects to `api.endport.io`. App URLs (`<app>.endport.io`) and custom-domain traffic also reach that gateway. Deploy and verify the gateway **before** pointing the Vercel workspace live, or login and logs requests will fail.
+The tunnel gateway cannot run as a static Vercel site. The default Docker Compose stack uses Caddy on public ports 80 and 443. If the VPS already runs Nginx for other apps, use [the shared-Nginx deployment guide](deploy/nginx/README.md) instead: it binds Endport to `127.0.0.1:8090`, keeps the existing Nginx, and gives it a renewable wildcard certificate. The CLI connects to `api.endport.io`. App URLs (`<app>.endport.io`) reach that gateway. Deploy and verify the gateway **before** expecting workspace login or public app URLs to work.
 
 Add the two domains in Vercel first and use the exact A/CNAME targets shown by its domain inspector. Configure DNS at your current DNS provider:
 
@@ -84,7 +84,7 @@ The health check should return `{"ok":true}` over HTTPS. Check startup or certif
 
 Push the repository from TinkerPal, import it into one Vercel project, and attach the apex and workspace domains to the production deployment. Vercel builds the static `dist/` output. Then install the CLI and run `endport 3000 --name packly` from a machine with a local server on port 3000. The CLI package is included in the site build at `/downloads/endport-cli-0.1.0.tgz`.
 
-For a custom public hostname, add a subdomain in the logs dashboard. Add the CNAME and TXT records shown, then select **Verify DNS**. Once verified, use `endport 3000 --domain api.example.com`. The logs URL remains `workspace.endport.io/packly`.
+For a custom public hostname, add a subdomain in the logs dashboard. Add the CNAME and TXT records shown, then select **Verify DNS**. Once verified, use `endport 3000 --domain api.example.com`. The logs URL remains `workspace.endport.io/packly`. On the shared-Nginx deployment, the custom hostname also needs its own Nginx server name and TLS certificate; that step is not automated by this template.
 
 The unscoped npm package `endport` belongs to an unrelated project. This deployment serves a versioned `@endport/cli` tarball directly. Publish that package to npm only if you control the `@endport` scope, then update the website's install command.
 

@@ -1,0 +1,9 @@
+# Use when this VPS already has Nginx on public ports 80 and 443.
+# Run: docker compose -f compose.yaml -f compose.nginx.yaml up -d --build db app
+services:
+  app:
+    ports:
+      - "127.0.0.1:8090:8080"
+  caddy:
+    profiles:
+      - standalone_caddy
