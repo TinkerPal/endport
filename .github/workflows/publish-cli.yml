@@ -1,0 +1,35 @@
+name: Publish Endport CLI
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full reviewed commit SHA to publish
+        required: true
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Validate immutable revision
+        env:
+          RELEASE_COMMIT: ${{ inputs.commit }}
+        run: '[[ "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]]'
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm install -g npm@11
+      - run: npm ci
+      - run: npm test --workspace @endport/cli
+      - run: npm pack --workspace @endport/cli --dry-run
+      - run: npm publish --workspace @endport/cli --access public

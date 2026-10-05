@@ -3,8 +3,50 @@
   "version": "0.1.0",
   "description": "Expose a local port through Endport",
   "type": "module",
-  "bin": { "endport": "dist/index.js" },
-  "files": ["dist", "README.md"],
-  "engines": { "node": ">=20.19.0" },
-  "dependencies": { "ws": "^8.18.3" }
+  "bin": {
+    "endport": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "license": "UNLICENSED",
+  "author": "TinkerPal",
+  "homepage": "https://endport.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TinkerPal/endport.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/TinkerPal/endport/issues"
+  },
+  "keywords": [
+    "endport",
+    "tunnel",
+    "localhost",
+    "cli",
+    "webhooks"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test tests",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^26.6.3",
+    "@types/ws": "^8.18.2"
+  }
 }
